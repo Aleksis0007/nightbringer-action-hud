@@ -1,0 +1,52 @@
+/* Moon Trail 2 — OBS overlay. Browser source size: 480 x 180. */
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent}
+body{font-family:"Segoe UI",sans-serif}
+
+.mt{position:absolute;left:40px;top:34px;width:400px;height:110px}
+.rail{position:absolute;left:0;top:26px;height:58px;width:var(--rw,60px);border-radius:13px;overflow:hidden;
+  background:radial-gradient(circle at 8% 0%,#65daff21,transparent 30%),radial-gradient(circle at 92% 100%,#b96fff1f,transparent 36%),linear-gradient(105deg,#050811f0,#120e1fe0);
+  border:1px solid #cfe4f23d;box-shadow:inset 0 1px #ffffff14,0 3px 8px #000a;opacity:0;
+  transition:opacity .2s,width .28s cubic-bezier(.2,.8,.2,1)}
+.mt.visible .rail{opacity:1}
+.rail::after{content:"";position:absolute;top:4px;bottom:4px;width:60px;left:-70px;border-radius:10px;
+  background:linear-gradient(90deg,transparent,#e8f4ff66,#ffffffaa,#e8f4ff66,transparent);transform:skewX(-18deg);opacity:0}
+.mt.sweep .rail::after{animation:sweep .7s cubic-bezier(.3,.6,.2,1)}
+@keyframes sweep{0%{left:-70px;opacity:0}15%{opacity:1}100%{left:calc(100% + 10px);opacity:0}}
+.heat{position:absolute;left:0;top:26px;height:58px;width:var(--rw,60px);border-radius:13px;pointer-events:none;opacity:0;
+  transition:opacity .25s,width .28s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 0 0 1px var(--hc,#ff6a3d),0 0 18px var(--hc,#ff6a3d),inset 0 0 22px color-mix(in srgb,var(--hc,#ff6a3d) 45%,transparent)}
+.mt[data-heat="1"] .heat{opacity:.35}
+.mt[data-heat="2"] .heat{opacity:.65;animation:pulse .9s ease-in-out infinite}
+.mt[data-heat="3"] .heat{opacity:1;animation:pulse .55s ease-in-out infinite}
+@keyframes pulse{50%{filter:brightness(1.5)}}
+
+.tiles{position:absolute;left:0;top:26px;height:58px;width:100%}
+.tile{--accent:#c4ae7e;--glow:#c4ae7e88;position:absolute;top:8px;width:42px;height:42px;border-radius:9px;
+  background:linear-gradient(145deg,#f6f4e6e0,var(--accent) 55%,#2a3048f2);box-shadow:0 0 6px var(--glow),0 2px 4px #0009;
+  transition:left .28s cubic-bezier(.2,.8,.2,1),opacity .28s,transform .28s}
+.tile img{position:absolute;inset:3px;width:36px;height:36px;border-radius:6px;background:#05070dd6;object-fit:contain;padding:1px}
+.tile .key{position:absolute;right:1px;bottom:1px;min-width:13px;height:13px;padding:0 2px;border-radius:5px;border:1px solid #c2cbd574;
+  background:#080d19ed;color:#f3f6ff;font:800 9px/11px "Segoe UI",sans-serif;text-align:center;z-index:2}
+.tile.enter{animation:arrive .62s ease-out both}
+@keyframes arrive{0%{opacity:0;transform:translateY(3px) scale(.42) rotate(-10deg)}48%{opacity:1;transform:translateY(-1px) scale(1.16) rotate(2deg)}72%{transform:translateY(1px) scale(.96) rotate(-1deg)}100%{opacity:1;transform:none}}
+.tile.leave{opacity:0;transform:translateX(-10px) scale(.6)}
+.tile.dim{filter:saturate(.75) brightness(.85)}
+.tile .cnt{position:absolute;left:50%;top:44px;transform:translateX(-50%);font:900 12px/1 "Segoe UI",sans-serif;color:#fff;
+  padding:2px 6px;border-radius:7px;background:#0a0f1ce8;border:1px solid var(--accent);box-shadow:0 0 8px var(--glow);white-space:nowrap;display:none}
+.tile .cnt.show{display:block}
+.tile .cnt.bump{animation:bump .28s ease-out}
+@keyframes bump{0%{transform:translateX(-50%) scale(1.5)}100%{transform:translateX(-50%) scale(1)}}
+.tile.killed{box-shadow:0 0 0 2px #ffd36b,0 0 16px #ffc94a,0 2px 4px #0009}
+.killtag{position:absolute;top:0;height:20px;padding:0 8px;border-radius:7px;font:900 11px/20px "Segoe UI",sans-serif;letter-spacing:.08em;color:#1a1204;
+  background:linear-gradient(180deg,#ffe49a,#f0b93a);box-shadow:0 0 14px #ffc94a;white-space:nowrap;animation:callIn .45s cubic-bezier(.2,1.4,.3,1) both}
+@keyframes callIn{0%{opacity:0;transform:translateY(6px) scale(.7)}100%{opacity:1;transform:none}}
+.weapon-calibrum{--accent:#75e5ff;--glow:#54d3ff9e}
+.weapon-severum{--accent:#ff5969;--glow:#ff4d5d94}
+.weapon-gravitum{--accent:#b17dff;--glow:#ab6dff94}
+.weapon-infernum{--accent:#529dff;--glow:#327cff94}
+.weapon-crescendum{--accent:#f4dca3;--glow:#f2d9a385}
+.spell-w{--accent:#78f1ff;--glow:#3adbff80}
+.spell-r{--accent:#ff4e64;--glow:#ff445c99}
+.auto{--accent:#edc26f;--glow:#edc26f8f}
+canvas.fx{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);pointer-events:none}

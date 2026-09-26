@@ -1,4 +1,4 @@
-/* Moon Trail 2 — live OBS overlay. Reads real inputs from the local server's /events stream.
+/* Nightbringer Action HUD — live OBS overlay. Reads real inputs from the local server's /events stream.
    URL options: ?demo=1 (loop a fake teamfight, for setting it up in OBS), ?heat=0, ?burst=0, ?kill=0 */
 (() => {
 "use strict";

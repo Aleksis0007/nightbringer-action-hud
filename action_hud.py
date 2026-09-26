@@ -53,7 +53,7 @@ KILL_POLL_SECONDS = 0.5
 
 HOST = "127.0.0.1"
 PORT = 5002
-VERSION = "0.2.0-beta.1"
+VERSION = "0.2.0-beta.2"
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
